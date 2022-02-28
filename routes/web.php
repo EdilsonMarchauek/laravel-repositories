@@ -2,6 +2,35 @@
 
 use Illuminate\Support\Facades\Route;
 
+//Controller - Criando os métodos do CRUD com Resource 
+//php artisan make:controller ProductController --resource
+//Aplicando um middleware na rota de Resource
+Route::resource('products', 'ProductController'); // ->middleware('auth');
+
+/*
+//Controller - deletando um produto com Delete
+Route::delete('products/{id}', 'ProductController@destroy')->name('products.destroy');
+
+//Controller - edita um produto com Put
+Route::put('products/{id}', 'ProductController@update')->name('products.update');
+
+//Controller - exibe o form para edição de um produto
+Route::get('products/{id}/edit', 'ProductController@edit')->name('products.edit');
+
+//Controller - exibindo formulário
+Route::get('products/create', 'ProductController@create')->name('products.create');
+
+//Controller com parâmetros - exibe um produto específico
+Route::get('products/{id}', 'ProductController@show')->name('products.show');
+
+//Usando Controller - exibe todos
+Route::get('products', 'ProductController@index')->name('products.index');
+
+//Controller - Cadastro usar via Post
+Route::post('products', 'ProductController@store')->name('products.store');
+*/
+
+
 Route::get('/login', function () {
     return 'Login';
 })->name('login');
@@ -58,7 +87,7 @@ Route::get('/name-url', function() {
 // });
 
 // Rota para uma view - somente se for algo muito simples, estático, sempre passar pelo controller.
-Route::view('/view', 'welcome');
+Route::view('/', 'welcome');
 
 // REDIRECIONAMENTO - utilizando helper (funcoes) redirect
 // Route::get('redirect1', function () {
