@@ -14,7 +14,7 @@
         @yield('content')
     </div>
 
-    <!-- Para partes específicas do projeto -->
+    <!-- stack - usada para partes específicas do projeto -->
     @stack('scripts')
     
 </body>

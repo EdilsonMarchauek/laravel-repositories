@@ -36,13 +36,15 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
+        //Direcionando para index.blade.php 
         $teste = 123;
         $teste2 = 321;
         $teste3 = [1,2,3,4,5];
         $products = ['Tv', 'Geladeira', 'forno', 'Sofá'];
-        //compact = array
+        //compact = cria array um array com as variáveis
         return view('admin.pages.products.index', compact('teste', 'teste2', 'teste3', 'products'));
     }
 
