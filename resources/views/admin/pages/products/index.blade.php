@@ -1,12 +1,14 @@
 <!-- Usando o template -->
 @extends('admin.layouts.app')
 
+<!-- layout: yield title -->
 @section('title', 'Gestão de Produtos')
 
+<!-- layout: content -->
 @section('content')
     <h1>Exibindo os produtos</h1>
 
-    <!-- Usando componentes -->
+    <!-- Card: Usando componentes slot-->
     @component('admin.components.card')
         @slot('title')
             <h1>Título Card</h1>
@@ -14,19 +16,21 @@
         Um card de exemplo
     @endcomponent 
 
-    <!-- Includes passando valor -->    
+    <!-- Includes: passando valor -->    
     @include('admin.includes.alerts', ['content' => 'Alerta de preços de produtos'])
 
-     <!-- Diretivas de repetição -->
+     <!-- Diretivas de repetição foreach -->
     @if (isset($products))
         @foreach ($products as $product)
+              <!-- loop pegando o último elemento -->
             <p class="@if ($loop->last) last @endif">{{ $product }}</p>
         @endforeach
     @endif
 
     <hr>
-    <!-- forelse repeticao -->
+    <!-- Diretiva de repetição com forelse -->
     @forelse ($products as $product)
+            <!-- loop pegando o primeiro elemento -->
             <p class="@if ($loop->first) last @endif">{{ $product }}</p>
     @empty
         <p>Não existem produtos cadastrados</p>
@@ -92,6 +96,15 @@
 
 @endsection
 
-<style>
-    .last {background: #CCC;}
-</style>
+<!-- layouts - usando o stack para partes específicas do projeto -->
+@push('styles')
+    <style>
+        .last {background: #CCC;}
+    </style>
+@endpush
+
+@push('scripts')
+    <script>
+        document.body.style.background = '#efefef'
+    </script>
+@endpush
