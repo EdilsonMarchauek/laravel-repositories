@@ -25,10 +25,10 @@ class ProductController extends Controller
         //Middleware em todos menos em um específico
         //$this->middleware('auth')->except('index');
 
-        //Middleware em todos menos em index e show
+        /*Middleware em todos menos em index e show
         $this->middleware('auth')->except([
             'index', 'show'
-        ]);
+        ]); */
     }
 
     /**
@@ -53,9 +53,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     //Método para a página de cadastro de produto
     public function create()
     {
-        //
+        return view('admin.pages.products.create');
     }
 
     /**
@@ -64,9 +66,11 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+     //Método que fará o cadastro do produto
     public function store(Request $request)
     {
-        //
+        dd('Cadastrando...');
     }
 
     /**
@@ -86,9 +90,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     //Faz a edição do produto
     public function edit($id)
     {
-        //
+        return view('admin.pages.products.edit', compact('id'));
     }
 
     /**
@@ -100,7 +106,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd("Editando o produto {$id}");
     }
 
     /**
