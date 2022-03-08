@@ -8,13 +8,30 @@
 @section('content')
     <h1>Cadastrar Novo Produto</h1>
 
+    {{-- Validação do form :
+        criar a classe: 
+        php artisan make:request StoreUpdateProductRequest 
+        app/Controllers/Requests/StoreUpdateProductRequest.php
+        Mensagens de erro: resources/lang/en/validation.php     
+    --}}
+    @if ($errors->any())
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }} </li>
+            @endforeach
+        </ul>
+    @endif
+
     <!-- action enviando para a o nome da rota -->
-    <form action="{{ route('products.store') }}" method="post">
+    {{-- Upload: é obrigatório informar o enctype --}}
+    <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
         <!-- cria o token -->
         @csrf
-        <!-- <input type="text" name="_token" value="{{ csrf_token() }}"> -->
-        <input type="text" name="name" placeholder="Nome:">
-        <input type="text" name="description" placeholder="Descrição:">
+        <!-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
+        {{-- value helper old para recuperar o valor informado --}}
+        <input type="text" name="name" placeholder="Nome:" value="{{ old('name')}}">
+        <input type="text" name="description" placeholder="Descrição:"  value="{{ old('description')}}">
+        <input type="file" name="photo">
         <button type="submit">Enviar</button>
     </form>
 

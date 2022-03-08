@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdateProductRequest;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -63,15 +64,65 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreUpdateProductRequest  $request
      * @return \Illuminate\Http\Response
      */
 
      //Método que fará o cadastro do produto
-    public function store(Request $request)
-    {
-        dd('Cadastrando...');
-    }
+    public function store(StoreUpdateProductRequest $request)
+    {   
+        dd('OK'); 
+        
+        /*
+        //Validação do form views/admin/pages/products/create.blade.php
+        $request->validate([
+            'name' => 'required|min:3|max:255',
+            'description' => 'nullable|min:3|max:10000',
+            'photo' => 'required|image',
+        ]);
+        */
+
+        // Pega todos os dados da requisição: 
+        //dd($request->all());
+
+        // Pega o campo name e description: 
+        //dd($request->only(['name', 'description']));
+
+        // Pega o campo name: 
+        //dd($request->name);
+
+        // Verifica se existe ou não 
+        // dd($request->has('name'));
+
+        // Se o campo não existe volta como default
+        // dd($request->input('teste', 'default'));
+
+        // Pega todos exceto 
+        // dd($request->except('_token'));
+
+        // Upload de arquivos: verifica se é válido
+        if ($request->file('photo')->isValid()){
+            // dd ($request->photo); // Todos as informações do arquivo
+            // dd($request->photo->extension()); // Extensão do arquivo
+            // dd($request->photo->getClientOriginalName()); // Nome original do arquivo
+            
+
+            // Arquivos ficam privados 
+            // Salvando o arquivo dentro de storage / criando a pasta products
+            // dd ($request->file('photo')->store('products'));
+
+            // Salva com o nome informado no input + extensão do arquivo.
+            $nameFile = $request->name . '.' . $request->photo->extension();
+            dd($request->file('photo')->storeAs('products', $nameFile)); //Alterando o nome do arquivo.
+
+            // Public - deixar os arquivos públicos
+            // config / filesystems.php (alterar o default => 'local' para 'public')
+            // Artisan criar link - >> php artisan storage:link
+            // Ver link: >> ls -la public\
+            // lrwxrwxrwx 1 Asus-Edilson 197609   56 mar  3 10:07 storage -> /c/docker/cursos/laravel-repositories/storage/app/public/ 
+            // Ficou publico em: C:\docker\cursos\laravel-repositories\storage\app\products
+        }
+    }   
 
     /**
      * Display the specified resource.
