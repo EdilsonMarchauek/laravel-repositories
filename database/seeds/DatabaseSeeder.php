@@ -9,8 +9,12 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
+
+    // Primeiro Passo: criar a classe UserTableSeeder
+    // php artisan make:seeder UsersTableSeeder 
+    // Criação de um usuário default no bd
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
     }
 }

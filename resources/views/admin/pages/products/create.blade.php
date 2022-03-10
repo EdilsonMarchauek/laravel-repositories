@@ -12,7 +12,6 @@
         criar a classe: 
         php artisan make:request StoreUpdateProductRequest 
         app/Controllers/Requests/StoreUpdateProductRequest.php
-        Mensagens de erro: resources/lang/en/validation.php     
     --}}
     @if ($errors->any())
         <ul>
