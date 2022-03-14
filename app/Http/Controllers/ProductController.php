@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUpdateProductRequest;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -40,13 +41,14 @@ class ProductController extends Controller
     
     public function index()
     {
-        //Direcionando para index.blade.php 
-        $teste = 123;
-        $teste2 = 321;
-        $teste3 = [1,2,3,4,5];
-        $products = ['Tv', 'Geladeira', 'forno', 'Sofá'];
-        //compact = cria array um array com as variáveis
-        return view('admin.pages.products.index', compact('teste', 'teste2', 'teste3', 'products'));
+        //$products = Product::all();
+        //$products = Product::get();
+        $products = Product::paginate(); //Padrão 15 por página, podendo ser altera paginate(50)
+        $products = Product::latest()->paginate(); //Pega os últimos registros
+
+        return view('admin.pages.products.index', [
+            'products' => $products,
+        ]);
     }
 
     /**
@@ -132,7 +134,15 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return "Detalhes do produto {$id}";
+        //Recuperando um produto pelo id
+        //$product = Product::where('id', $id)->first();
+        
+        if(!$product = Product::find($id))
+          return redirect()->back();
+
+        return view('admin.pages.products.show', [
+            'product' => $product
+        ]);
     }
 
     /**

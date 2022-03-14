@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
 
-        //Factory utilizada para criar listas fakes, neste caso usuarios
+        //Factory utilizada para criar listas fakes, neste caso 10 usuarios
         factory(User::class, 10)->create();    
 
         /*
