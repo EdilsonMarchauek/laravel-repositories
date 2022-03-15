@@ -11,10 +11,12 @@ class ProductController extends Controller
 
     //Injeção de dependência
     protected $request;
+    private $repository;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request, Product $product)
     {
         $this->request = $request;
+        $this->repository = $product;
 
         //Middleware dentro do controller
         //$this->middleware('auth');
@@ -73,57 +75,11 @@ class ProductController extends Controller
      //Método que fará o cadastro do produto
     public function store(StoreUpdateProductRequest $request)
     {   
-        dd('OK'); 
-        
-        /*
-        //Validação do form views/admin/pages/products/create.blade.php
-        $request->validate([
-            'name' => 'required|min:3|max:255',
-            'description' => 'nullable|min:3|max:10000',
-            'photo' => 'required|image',
-        ]);
-        */
+        $data = $request->only('name', 'description', 'price');
 
-        // Pega todos os dados da requisição: 
-        //dd($request->all());
+        $this->repository->create($data);
 
-        // Pega o campo name e description: 
-        //dd($request->only(['name', 'description']));
-
-        // Pega o campo name: 
-        //dd($request->name);
-
-        // Verifica se existe ou não 
-        // dd($request->has('name'));
-
-        // Se o campo não existe volta como default
-        // dd($request->input('teste', 'default'));
-
-        // Pega todos exceto 
-        // dd($request->except('_token'));
-
-        // Upload de arquivos: verifica se é válido
-        if ($request->file('photo')->isValid()){
-            // dd ($request->photo); // Todos as informações do arquivo
-            // dd($request->photo->extension()); // Extensão do arquivo
-            // dd($request->photo->getClientOriginalName()); // Nome original do arquivo
-            
-
-            // Arquivos ficam privados 
-            // Salvando o arquivo dentro de storage / criando a pasta products
-            // dd ($request->file('photo')->store('products'));
-
-            // Salva com o nome informado no input + extensão do arquivo.
-            $nameFile = $request->name . '.' . $request->photo->extension();
-            dd($request->file('photo')->storeAs('products', $nameFile)); //Alterando o nome do arquivo.
-
-            // Public - deixar os arquivos públicos
-            // config / filesystems.php (alterar o default => 'local' para 'public')
-            // Artisan criar link - >> php artisan storage:link
-            // Ver link: >> ls -la public\
-            // lrwxrwxrwx 1 Asus-Edilson 197609   56 mar  3 10:07 storage -> /c/docker/cursos/laravel-repositories/storage/app/public/ 
-            // Ficou publico em: C:\docker\cursos\laravel-repositories\storage\app\products
-        }
+        return redirect()->route('products.index');
     }   
 
     /**
@@ -137,7 +93,7 @@ class ProductController extends Controller
         //Recuperando um produto pelo id
         //$product = Product::where('id', $id)->first();
         
-        if(!$product = Product::find($id))
+        if(!$product = $this->repository->find($id))
           return redirect()->back();
 
         return view('admin.pages.products.show', [
@@ -155,7 +111,10 @@ class ProductController extends Controller
      //Faz a edição do produto
     public function edit($id)
     {
-        return view('admin.pages.products.edit', compact('id'));
+        if(!$product = $this->repository->find($id))
+        return redirect()->back();
+
+        return view('admin.pages.products.edit', compact('product'));
     }
 
     /**
@@ -167,7 +126,12 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd("Editando o produto {$id}");
+        if(!$product = $this->repository->find($id))
+        return redirect()->back();
+
+        $product->update($request->all());
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -178,6 +142,12 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = $this->repository->where('id', $id)->first();
+        if(!$product)
+          return redirect()->back();
+
+        $product->delete();
+
+        return redirect()->route('products.index');
     }
 }

@@ -27,7 +27,8 @@
                 <td>{{ $product->name }}</td>
                 <td>{{ $product->price }}</td>
                 <td>
-                    {{-- Detalhes exibe o produto pelo id --}}
+                    {{-- Exibe o produto pelo id --}}
+                    <a href="{{ route('products.edit', $product->id) }}">Editar</a>
                     <a href="{{ route('products.show', $product->id) }}">Detalhes</a>
                 </td>
             </tr>
