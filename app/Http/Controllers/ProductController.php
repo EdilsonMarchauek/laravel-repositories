@@ -82,7 +82,6 @@ class ProductController extends Controller
             $imagePath = $request->image->store('products');
 
             $data['image'] =  $imagePath;
-
         }
 
         $this->repository->create($data);

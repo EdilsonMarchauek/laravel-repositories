@@ -2,7 +2,7 @@
 
 <!-- cria o token -->
 @csrf
-<!-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
+<!-- <input type="hidden" name="_token" value="{ csrf_token() }"> -->
 {{-- value helper old para recuperar o valor informado --}}
 
 <div class="form-group">
