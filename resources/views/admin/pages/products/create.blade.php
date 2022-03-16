@@ -17,7 +17,7 @@
 
     <!-- action enviando para a o nome da rota -->
     {{-- Upload: é obrigatório informar o enctype --}}
-    <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data" class="form">
+    <form action="{{ route('products.store') }}" method="post" class="form" enctype="multipart/form-data">
         @include('admin.pages.products._partials.form')
     </form>
 

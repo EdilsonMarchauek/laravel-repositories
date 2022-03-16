@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 //Controller - Criando os métodos do CRUD com Resource 
 //php artisan make:controller ProductController --resource
 //Aplicando um middleware na rota de Resource
+//Criando a rota para filtrar
+Route::any('products/search', 'ProductController@search')->name('products.search');
 Route::resource('products', 'ProductController'); // ->middleware('auth');
 
 /*

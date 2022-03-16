@@ -9,7 +9,7 @@
     <h1>Editar Produto {{ $product->name }}</h1>
 
     <!-- action enviando para a o nome da rota com o id-->
-    <form action="{{ route('products.update', $product->id) }}" method="post">
+    <form action="{{ route('products.update', $product->id) }}" method="post" enctype="multipart/form-data">
         <!-- Method: Update necessita ser PUT -->
         @method('PUT')
         <!--  <input type="hidden" name="_method" value="PUT"> -->
