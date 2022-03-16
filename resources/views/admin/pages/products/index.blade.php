@@ -33,7 +33,7 @@
             <tr>
                 <td>
                     @if ($product->image)
-                        <img src="{{ public_path("storage/{$product->image}") }}" alt="{{ $product->name }}" style="max-width: 100px;">
+                        <img src="{{ url("storage/{$product->image}") }}" alt="{{ $product->name }}" style="max-width: 100px;">
                     @endif
                 </td>
                 <td>{{ $product->name }}</td>
