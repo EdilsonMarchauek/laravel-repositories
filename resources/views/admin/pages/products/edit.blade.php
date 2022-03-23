@@ -6,7 +6,7 @@
 
 @section('content')
     <!-- imprime o id do produto -->
-    <h1>Editar Produto {{ $product->name }}</h1>
+    <h1>Editar Jogo {{ $product->name }}</h1>
 
     <!-- action enviando para a o nome da rota com o id-->
     <form action="{{ route('products.update', $product->id) }}" method="post" enctype="multipart/form-data">

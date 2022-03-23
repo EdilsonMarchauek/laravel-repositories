@@ -6,7 +6,7 @@
 @section('title', 'Cadastrar Novo Produto')
 
 @section('content')
-    <h1>Cadastrar Novo Produto</h1>
+    <h1>Cadastrar Novo Jogo</h1>
 
    {{-- Validação do form :
         criar a classe: 

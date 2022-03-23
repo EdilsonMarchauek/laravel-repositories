@@ -15,7 +15,11 @@ class Product extends Model
 
         $results = $this->where(function ($query) use($filter){
             if ($filter){
-                $query->where('name', 'LIKE', "%{$filter}%");
+                $query->where('name', 'LIKE', "%{$filter}%")
+                      ->orWhere('price', 'LIKE', "%{$filter}%");
+            }
+            if ($filter){
+                $query->where('price', 'LIKE', "%{$filter}%");
             }
         })//->toSql();
         ->paginate();

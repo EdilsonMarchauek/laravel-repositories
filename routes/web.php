@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Route;
 //Aplicando um middleware na rota de Resource
 //Criando a rota para filtrar
 Route::any('products/search', 'ProductController@search')->name('products.search');
-Route::resource('products', 'ProductController'); // ->middleware('auth');
+//Login
+Route::resource('products', 'ProductController')->middleware('auth');
 
 /*
 //Controller - deletando um produto com Delete
@@ -141,3 +142,8 @@ Route::get('/empresa', function () {
 Route::get('/contato', function () {
     return view('site.contact');
 });
+
+//Retira da index o register
+Auth::routes(['register' => false]);
+
+
