@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 //Criando a rota para filtrar
 Route::any('products/search', 'ProductController@search')->name('products.search');
 //Login
-Route::resource('products', 'ProductController')->middleware('auth');
+Route::resource('products', 'ProductController')->middleware( ['auth', 'check.is.admin'] );
 
 /*
 //Controller - deletando um produto com Delete
